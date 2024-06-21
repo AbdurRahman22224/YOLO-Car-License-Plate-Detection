@@ -1,6 +1,3 @@
-Certainly! Below is a sample README file for your Automatic Car License Plate Detection project using YOLO v9, trained on your own dataset from Kaggle, and deployed using Streamlit with OCR using pytesseract.
-
----
 
 # Automatic Car License Plate Detection
 
