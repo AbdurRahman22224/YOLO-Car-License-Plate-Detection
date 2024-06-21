@@ -77,6 +77,10 @@ def predict_and_save_image(path_test_car:str, output_image_path:str)-> str:
                             cv2.FONT_HERSHEY_SIMPLEX, 0.7, (51, 255, 255), 2, cv2.LINE_AA)
         st.code(f"License Number: {text}", language='text')      
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        # Ensure the directory exists before saving
+        os.makedirs(os.path.dirname(output_image_path), exist_ok= True)
+        # Save the image
+        cv2.imwrite(output_image_path, image)
         cv2.imwrite(output_image_path, image)
         return output_image_path
     except Exception as e:
