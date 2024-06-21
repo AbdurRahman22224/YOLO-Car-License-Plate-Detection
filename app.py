@@ -99,8 +99,9 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
     str: The path to the saved output video file.
     """
     try:
-        temp_output_path = output_path.replace('.mp4', '_temp.mp4')
-       
+        # temp_output_path = output_path.replace('.mp4', '_temp.mp4')
+        temp_output_path = os.path.join('temp', 'output_demo_temp.mp4')
+        
         cap = cv2.VideoCapture(video_path)
         if not cap.isOpened():
             st.error(f"Error opening video file: {video_path}")
@@ -115,7 +116,7 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
         if not os.path.exists(output_dir):
             os.makedirs(output_dir, exist_ok=True)
 
-        out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
+        out = cv2.VideoWriter(temp_output_path, fourcc, fps, (frame_width, frame_height))
         while cap.isOpened():
             ret, frame = cap.read()
             if not ret:
@@ -143,8 +144,10 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
         out.release()
                 # Convert the video to H264 format using FFmpeg
         try:
+           print(output_path)
+           print(temp_output_path)
            ffmpeg_command = [
-               'ffmpeg', '-i', input_path, '-c:v', 'libx264', '-preset', 'fast', '-crf', '22', output_path
+               'ffmpeg', '-i', temp_output_path, '-c:v', 'libx264', '-preset', 'fast', '-crf', '22', output_path
            ]
            subprocess.run(ffmpeg_command, check=True)
            print(f"Video conversion successful. Output saved to {output_path}")
