@@ -142,10 +142,14 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
         cap.release()
         out.release()
                 # Convert the video to H264 format using FFmpeg
-        ffmpeg_command = [
-            'ffmpeg', '-i', temp_output_path, '-c:v', 'libx264', '-preset', 'fast', '-crf', '22', output_path
-        ]
-        subprocess.run(ffmpeg_command, check=True)
+       try:
+           ffmpeg_command = [
+               'ffmpeg', '-i', input_path, '-c:v', 'libx264', '-preset', 'fast', '-crf', '22', output_path
+           ]
+           subprocess.run(ffmpeg_command, check=True)
+           print(f"Video conversion successful. Output saved to {output_path}")
+       except subprocess.CalledProcessError as e:
+           print(f"Error converting video: {e}")
 
         # Remove the temporary file
         os.remove(temp_output_path)
