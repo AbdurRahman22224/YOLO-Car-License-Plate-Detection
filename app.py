@@ -28,7 +28,7 @@ pytesseract.pytesseract.tesseract_cmd = find_tesseract_binary()
 if not pytesseract.pytesseract.tesseract_cmd:
     st.error("Tesseract binary not found in PATH. Please install Tesseract.")
 
-# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe" (only for local)
+# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe" (only for)
 
 # st.title("YOLO Car Lisence Plate Image and Video Processing")
 
@@ -80,7 +80,6 @@ def predict_and_save_image(path_test_car:str, output_image_path:str)-> str:
         # Ensure the directory exists before saving
         os.makedirs(os.path.dirname(output_image_path), exist_ok= True)
         # Save the image
-        cv2.imwrite(output_image_path, image)
         cv2.imwrite(output_image_path, image)
         return output_image_path
     except Exception as e:
