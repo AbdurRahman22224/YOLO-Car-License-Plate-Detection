@@ -106,7 +106,7 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
         frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         fps = int(cap.get(cv2.CAP_PROP_FPS))
         # fourcc = cv2.VideoWriter_fourcc(*'H264')
-        fourcc = cv2.VideoWriter_fourcc(*'avc1')
+        fourcc = cv2.VideoWriter_fourcc(*'MP4V')
         
         output_dir = os.path.dirname(output_path)
         if not os.path.exists(output_dir):
