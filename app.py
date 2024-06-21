@@ -8,6 +8,7 @@ from pytesseract import Output
 import os
 import re
 import shutil
+import subprocess
 
 st.set_page_config(
    page_title = "YOLO Car Lisence Plate Image and Video Processing",
@@ -98,6 +99,8 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
     str: The path to the saved output video file.
     """
     try:
+        temp_output_path = output_path.replace('.mp4', '_temp.mp4')
+       
         cap = cv2.VideoCapture(video_path)
         if not cap.isOpened():
             st.error(f"Error opening video file: {video_path}")
@@ -138,6 +141,15 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
             out.write(frame)
         cap.release()
         out.release()
+                # Convert the video to H264 format using FFmpeg
+        ffmpeg_command = [
+            'ffmpeg', '-i', temp_output_path, '-c:v', 'libx264', '-preset', 'fast', '-crf', '22', output_path
+        ]
+        subprocess.run(ffmpeg_command, check=True)
+
+        # Remove the temporary file
+        os.remove(temp_output_path)
+       
         return output_path
     except Exception as e:
         st.error(f"Error processing video: {e}")
