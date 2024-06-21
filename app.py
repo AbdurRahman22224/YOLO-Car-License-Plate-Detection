@@ -7,6 +7,7 @@ import pytesseract
 from pytesseract import Output
 import os
 import re
+import shutil
 
 st.set_page_config(
    page_title = "YOLO Car Lisence Plate Image and Video Processing",
@@ -15,7 +16,19 @@ st.set_page_config(
    initial_sidebar_state = "expanded",
 )
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = None
+
+# search for tesseract binary in path
+@st.cache_resource
+def find_tesseract_binary() -> str:
+    return shutil.which("tesseract")
+
+# set tesseract binary path
+pytesseract.pytesseract.tesseract_cmd = find_tesseract_binary()
+if not pytesseract.pytesseract.tesseract_cmd:
+    st.error("Tesseract binary not found in PATH. Please install Tesseract.")
+
+# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe" (only for local)
 
 # st.title("YOLO Car Lisence Plate Image and Video Processing")
 
