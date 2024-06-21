@@ -155,7 +155,8 @@ def process_media(input_path:str, output_path:str) -> str:
         return None
 
 temp_directory = 'temp'
-os.makedirs(temp_directory, exist_ok=True)
+if not os.path.exists(temp_directory):
+    os.makedirs(temp_directory)
 
 if st.button("Proceed"):
     if uploaded_file is not None:
