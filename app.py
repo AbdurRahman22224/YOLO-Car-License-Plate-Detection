@@ -12,9 +12,9 @@ import shutil
 st.set_page_config(
    page_title = "YOLO Car Lisence Plate Image and Video Processing",
    page_icon = ":car:",
-   layout = "wide",
    initial_sidebar_state = "expanded",
 )
+st.title('YOLO Car Lisence Plate :red[Image and Video Processing]')
 
 pytesseract.pytesseract.tesseract_cmd = None
 
@@ -33,7 +33,7 @@ if not pytesseract.pytesseract.tesseract_cmd:
 # st.title("YOLO Car Lisence Plate Image and Video Processing")
 
 # Allow users to upload images or videos
-uploaded_file = st.file_uploader("Upload an image or video", type=["jpg", "jpeg", "png", "bmp", "mp4", "avi", "mov", "mkv"])
+uploaded_file = st.file_uploader("Upload an Image or Video", type=["jpg", "jpeg", "png", "bmp", "mp4", "avi", "mov", "mkv"])
 
 
 def remove_non_alphanum(text):
@@ -105,8 +105,13 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
         frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         fps = int(cap.get(cv2.CAP_PROP_FPS))
-        fourcc = cv2.VideoWriter_fourcc(*'H264')
-        os.makedirs(os.path.dirname(output_path), exist_ok= True)
+        # fourcc = cv2.VideoWriter_fourcc(*'H264')
+        fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+        
+        output_dir = os.path.dirname(output_path)
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir, exist_ok=True)
+
         out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
         while cap.isOpened():
             ret, frame = cap.read()
