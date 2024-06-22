@@ -153,7 +153,7 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
            print(f"Video conversion successful. Output saved to {output_path}")
         except subprocess.CalledProcessError as e:
            print(f"Error converting video: {e}")
-
+            
         # Remove the temporary file
         os.remove(temp_output_path)
        
