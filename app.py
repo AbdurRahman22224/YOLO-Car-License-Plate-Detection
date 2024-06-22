@@ -173,10 +173,10 @@ if not os.path.exists(temp_directory):
 
 if uploaded_file is not None:
     # Create a temporary directory using tempfile
-    with tempfile.TemporaryDirectory() as temp_dir:
+    # with tempfile.TemporaryDirectory() as temp_dir:
         # Define input and output paths
-        input_path = os.path.join(temp_dir, uploaded_file.name)
-        output_path = os.path.join(temp_dir, f"output_{uploaded_file.name}")
+     input_path = os.path.join(temp_directory, uploaded_file.name)
+     output_path = os.path.join(temp_directory, f"output_{uploaded_file.name}")
         
         try:
             # Save the uploaded file to the temporary directory
