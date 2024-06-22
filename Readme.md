@@ -1,7 +1,7 @@
 
 # Automatic Car License Plate Detection
 
-This project implements automatic car license plate detection using YOLO v9, a deep learning model trained on a custom dataset obtained from Kaggle. It utilizes pytesseract for Optical Character Recognition (OCR) to extract license plate numbers from detected plates. The application is deployed using Streamlit for easy user interaction.
+This project implements automatic car license plate detection using YOLO v9, and trained on a custom dataset obtained from Kaggle. It utilizes pytesseract for Optical Character Recognition (OCR) to extract license plate numbers from detected plates. The application is deployed using Streamlit for easy user interaction.
 
 ## Features
 
@@ -15,8 +15,8 @@ This project implements automatic car license plate detection using YOLO v9, a d
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/your-repo.git
-   cd your-repo
+   git clone https://github.com/AbdurRahman22224/YOLO-Car-License-Plate-Detection
+   cd YOLO-Car-License-Plate-Detection
    ```
 
 2. Install dependencies:
@@ -25,7 +25,7 @@ This project implements automatic car license plate detection using YOLO v9, a d
    pip install -r requirements.txt
    ```
 
-   Make sure to have the necessary versions of Python and CUDA installed if using GPU. (my is cpu based)
+   Make sure to have the necessary versions of Python and CUDA installed if using GPU. (my output is cpu based)
 
 3. Run the Streamlit app:
 
@@ -65,7 +65,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 
-For questions or support regarding this project, please contact [Your Name](mailto:youremail@example.com).
+For questions or support regarding this project, please contact [Abdur Rahman](abdurrahman22224@gmail.com).
 
 ---
 
