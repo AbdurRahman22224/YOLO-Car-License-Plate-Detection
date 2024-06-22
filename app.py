@@ -171,30 +171,23 @@ temp_directory = 'temp'
 if not os.path.exists(temp_directory):
     os.makedirs(temp_directory)
 
-if uploaded_file is not None:
-    # Create a temporary directory using tempfile
-    # with tempfile.TemporaryDirectory() as temp_dir:
-        # Define input and output paths
-     input_path = os.path.join(temp_directory, uploaded_file.name)
-     output_path = os.path.join(temp_directory, f"output_{uploaded_file.name}")
-        
-     try:
-         # Save the uploaded file to the temporary directory
-         with open(input_path, "wb") as f:
-             f.write(uploaded_file.getbuffer())
-         
-         # st.write("File saved to:", input_path)
-         
-         if st.button("Proceed"):
-             with st.spinner('Processing...'):
-                 # Process the media file
-                 result_path = process_media(input_path, output_path)
-                 if result_path:
-                     if input_path.endswith(('.h264', '.mp4', '.avi', '.mov', '.mkv')):
-                         with open(result_path, 'rb') as video_file:
-                             video_bytes = video_file.read()
-                             st.video(video_bytes)
-                 else:
-                     st.image(result_path)
-     except Exception as e:
-         st.error(f"Error uploading or processing file: {e}")
+if st.button("Proceed"):
+    if uploaded_file is not None:
+        input_path = os.path.join("temp", uploaded_file.name)
+        output_path = os.path.join("temp", f"output_{uploaded_file.name}")
+        try:
+            with open(input_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+            
+            with st.spinner('Processing...'):
+                result_path = process_media(input_path, output_path)
+                if result_path:
+                    if input_path.endswith(('.h264','.mp4', '.avi', '.mov', '.mkv')):
+                        # video_file = open(result_path, 'rb')
+                        with open(result_path, "rb") as video_file:
+                            video_bytes = video_file.read()
+                            st.video(video_bytes)
+                    else:
+                        st.image(result_path)
+        except Exception as e:
+            st.error(f"Error uploading or processing file: {e}")
