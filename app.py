@@ -145,7 +145,7 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
                 # Convert the video to H264 format using FFmpeg
         try:
            temp_output_path = os.path.join('temp', 'output_demo_temp.mp4')
-           
+           print(f'temp_output_path: {temp_output_path}')
            ffmpeg_command = [
             'ffmpeg', '-i', temp_output_path, '-an', '-vcodec', 'libx264', '-crf', '23', output_path
            ]
