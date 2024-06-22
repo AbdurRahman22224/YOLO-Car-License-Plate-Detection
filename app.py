@@ -145,11 +145,12 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
                 # Convert the video to H264 format using FFmpeg
         try:
            temp_output_path = os.path.join('temp', 'output_demo_temp.mp4')
+           
            ffmpeg_command = [
-            'ffmpeg', '-i', temp_output_path, '-c:v', 'libx264', '-preset', 'fast', '-crf', '22', 
-            '-force_key_frames', 'expr:gte(t,n_forced*2)', output_path
+            'ffmpeg', '-i', temp_output_path, '-an', '-vcodec', 'libx264', '-crf', '23', output_path
            ]
            subprocess.run(ffmpeg_command, check=True)
+           
            return output_path
            
         except subprocess.CalledProcessError as e:
