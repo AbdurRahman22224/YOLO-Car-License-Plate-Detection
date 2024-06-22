@@ -200,7 +200,7 @@ if st.button("Proceed"):
             with st.spinner('Processing...'):
                 result_path = process_media(input_path, output_path)
                 if result_path:
-                    if input_path.endswith(('.mp4', '.avi', '.mov', '.mkv')):
+                    if input_path.endswith(('.h264','.mp4', '.avi', '.mov', '.mkv')):
                         video_file = open(result_path, 'rb')
                         video_bytes = video_file.read()
                         st.video(video_bytes)
