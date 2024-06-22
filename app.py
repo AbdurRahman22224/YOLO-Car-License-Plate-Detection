@@ -100,7 +100,7 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
     """
     try:
         # temp_output_path = output_path.replace('.mp4', '_temp.mp4')
-        temp_output_path = os.path.join('temp', 'output_demo_temp.mp4')
+        # temp_output_path = os.path.join('temp', 'output_demo_temp.mp4')
         
         cap = cv2.VideoCapture(video_path)
         if not cap.isOpened():
@@ -110,13 +110,13 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
         frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         fps = int(cap.get(cv2.CAP_PROP_FPS))
         # fourcc = cv2.VideoWriter_fourcc(*'H264')
-        fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+        fourcc = cv2.VideoWriter_fourcc(*'h264')
         
         output_dir = os.path.dirname(output_path)
         if not os.path.exists(output_dir):
             os.makedirs(output_dir, exist_ok=True)
 
-        out = cv2.VideoWriter(temp_output_path, fourcc, fps, (frame_width, frame_height))
+        out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
         while cap.isOpened():
             ret, frame = cap.read()
             if not ret:
@@ -143,19 +143,19 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
         cap.release()
         out.release()
                 # Convert the video to H264 format using FFmpeg
-        try:
-           temp_output_path = os.path.join('temp', 'output_demo_temp.mp4')
-           print(f'temp_output_path: {temp_output_path}')
-           ffmpeg_command = [
-            'ffmpeg', '-i', temp_output_path, '-an', '-vcodec', 'libx264', '-crf', '23', output_path
-           ]
-           subprocess.run(ffmpeg_command, check=True)
-           print(f"Video conversion successful. Output saved to {output_path}")
-           return output_path
+        # try:
+        #    temp_output_path = os.path.join('temp', 'output_demo_temp.mp4')
+        #    print(f'temp_output_path: {temp_output_path}')
+        #    ffmpeg_command = [
+        #     'ffmpeg', '-i', temp_output_path, '-an', '-vcodec', 'libx264', '-crf', '23', output_path
+        #    ]
+        #    subprocess.run(ffmpeg_command, check=True)
+        #    print(f"Video conversion successful. Output saved to {output_path}")
+        #    return output_path
            
-        except subprocess.CalledProcessError as e:
-           st.error(f"Error converting video: {e}")
-           return None
+        # except subprocess.CalledProcessError as e:
+        #    st.error(f"Error converting video: {e}")
+        #    return None
             
         # Remove the temporary file
         # os.remove(temp_output_path)
