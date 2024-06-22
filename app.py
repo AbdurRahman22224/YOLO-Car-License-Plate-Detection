@@ -8,7 +8,7 @@ from pytesseract import Output
 import os
 import re
 import shutil
-import subprocess
+
 
 st.set_page_config(
    page_title = "YOLO Car Lisence Plate Image and Video Processing",
@@ -29,9 +29,7 @@ pytesseract.pytesseract.tesseract_cmd = find_tesseract_binary()
 if not pytesseract.pytesseract.tesseract_cmd:
     st.error("Tesseract binary not found in PATH. Please install Tesseract.")
 
-# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe" (only for)
-
-# st.title("YOLO Car Lisence Plate Image and Video Processing")
+# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe" (only for local)
 
 # Allow users to upload images or videos
 uploaded_file = st.file_uploader("Upload an Image or Video", type=["jpg", "jpeg", "png", "bmp", "mp4", "avi", "mov", "mkv"])
@@ -98,10 +96,7 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
     Returns:
     str: The path to the saved output video file.
     """
-    try:
-        # temp_output_path = output_path.replace('.mp4', '_temp.mp4')
-        # temp_output_path = os.path.join('temp', 'output_demo_temp.mp4')
-        
+    try:  
         cap = cv2.VideoCapture(video_path)
         if not cap.isOpened():
             st.error(f"Error opening video file: {video_path}")
@@ -109,7 +104,7 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
         frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         fps = int(cap.get(cv2.CAP_PROP_FPS))
-        # fourcc = cv2.VideoWriter_fourcc(*'H264')
+        
         fourcc = cv2.VideoWriter_fourcc(*'h264')
         
         output_dir = os.path.dirname(output_path)
@@ -142,25 +137,9 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
             out.write(frame)
         cap.release()
         out.release()
-                # Convert the video to H264 format using FFmpeg
-        # try:
-        #    temp_output_path = os.path.join('temp', 'output_demo_temp.mp4')
-        #    print(f'temp_output_path: {temp_output_path}')
-        #    ffmpeg_command = [
-        #     'ffmpeg', '-i', temp_output_path, '-an', '-vcodec', 'libx264', '-crf', '23', output_path
-        #    ]
-        #    subprocess.run(ffmpeg_command, check=True)
-        #    print(f"Video conversion successful. Output saved to {output_path}")
-        #    return output_path
-           
-        # except subprocess.CalledProcessError as e:
-        #    st.error(f"Error converting video: {e}")
-        #    return None
-            
-        # Remove the temporary file
-        # os.remove(temp_output_path)
        
         return output_path
+       
     except Exception as e:
         st.error(f"Error processing video: {e}")
         return None
@@ -179,8 +158,10 @@ def process_media(input_path:str, output_path:str) -> str:
     file_extension = os.path.splitext(input_path)[1].lower()
     if file_extension in ['.mp4', '.avi', '.mov', '.mkv']:
         return predict_and_plot_video(input_path, output_path)
+       
     elif file_extension in ['.jpg', '.jpeg', '.png', '.bmp']:
         return predict_and_save_image(input_path, output_path)
+       
     else:
         st.error(f"Unsupported file type: {file_extension}")
         return None
