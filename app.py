@@ -150,7 +150,7 @@ def predict_and_plot_video(video_path:str, output_path:str)-> str:
             'ffmpeg', '-i', temp_output_path, '-an', '-vcodec', 'libx264', '-crf', '23', output_path
            ]
            subprocess.run(ffmpeg_command, check=True)
-           
+           print(f"Video conversion successful. Output saved to {output_path}")
            return output_path
            
         except subprocess.CalledProcessError as e:
