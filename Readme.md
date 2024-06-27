@@ -53,10 +53,6 @@ This project implements automatic car license plate detection using YOLO v9, and
 
 Contributions are welcome! Please fork the repository and create a pull request for any improvements or additional features.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Acknowledgments
 
 - **Ultralytics YOLO:** For providing a powerful YOLO implementation.
