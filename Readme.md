@@ -65,4 +65,3 @@ For questions or support regarding this project, please contact [Abdur Rahman](a
 
 ---
 
-Adjust the sections and details based on your actual project structure and requirements. This README provides an overview of the project, installation instructions, usage guidelines, dependencies, contribution guidelines, licensing information, acknowledgments, and contact details.
